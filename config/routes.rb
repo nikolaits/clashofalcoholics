@@ -53,4 +53,14 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+post '/buildings/upgrade', to: 'buildings#upgrade' 
+get '/buildings/list', to: 'buildings#list'
+
+get '/districts/info', to: 'districts#info'
+
+post '/users/login',  to: 'users#login' 
+post '/users/logout', to: 'users#logout'
+post '/users/new', to: 'users#new'
+
 end
