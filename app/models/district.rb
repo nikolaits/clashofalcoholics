@@ -1,3 +1,3 @@
 class District < ActiveRecord::Base
-	has_many :district_buildings
+  has_many :district_buildings
 end
