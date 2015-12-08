@@ -12,6 +12,8 @@
 
 * `git branch NAME_OF_BRANCH`
 * `git checkout NAME_OF_BRANCH`
+* Install dependencies `bundle install`
+* Setup database `bundle exec rake db:setup`
 
 ## Synchronize your fork with the original course repo
 
