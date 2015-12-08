@@ -20,8 +20,23 @@ class BuildingsController < ApplicationController
       end
 
       requirements = BuildingLevel.where(building_id: params[:building_id], level: level).first
-      if requirements.beer > @district.beer || requirements.vodka > @district.vodka || requirements.food > @district.food || requirements.stone > @district.stone
-        @error = true
+      @error = true unless requirements
+
+      if requirements
+        if requirements.beer > @district.beer || requirements.vodka > @district.vodka || requirements.food > @district.food || requirements.stone > @district.stone
+          @error = true
+        end
+      end
+
+      # if !@error
+      unless @error
+        # Create the new building
+        DistrictBuilding.create(district_id: @district.id, level: level, building_id: params[:building_id]) if level == 1
+
+        if level > 1
+          building.level = level
+          building.save
+        end
       end
     end
   end
