@@ -40,6 +40,9 @@ group :development, :test do
   # Rubocop for linting purposes
   gem 'rubocop'
 
+  # Factory Girl
+  gem 'factory_girl_rails'
+
   gem 'spring-commands-rspec'
   gem 'rspec-rails'
   gem 'guard-rspec'
