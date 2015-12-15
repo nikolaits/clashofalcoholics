@@ -18,11 +18,26 @@ class BuildingsController < ApplicationController
       if building
         level = building.level + 1
       end
+      max_building = BuildingLevel.where(building_id: params[:building_id]).order(level: :desc).first;
 
-      requirements = BuildingLevel.where(building_id: params[:building_id], level: level).first
-      if requirements.beer > @district.beer || requirements.vodka > @district.vodka || requirements.food > @district.food || requirements.stone > @district.stone
-        @error = true
+      if level < max_building.level
+        @error=true
+      else
+        @building.update(level: level)
+        @building.save
       end
+      if(@error)
+        requirements = BuildingLevel.where(building_id: params[:building_id], level: level).first
+        if requirements.beer > @district.beer || requirements.vodka > @district.vodka || requirements.food > @district.food || requirements.stone > @district.stone
+          @error = true
+        else
+          if level == 1
+            DistrictBuildings.create(district_id: @district.first.id, building_id: params[:building_id], level: level)
+          end
+        end
+      end
+
+
     end
   end
 

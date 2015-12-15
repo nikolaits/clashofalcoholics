@@ -19,6 +19,32 @@ RSpec.describe BuildingsController, type: :controller do
       error = assigns(:error)
       expect(error).to eq(true)
     end
+
+    it "return error if user reached building max level" do
+      @usr  = User.create(id:1)
+      District.create(user_id: 1, beer: 0, food: 0, vodka: 0, stone: 0)
+
+      Building.create(id: 1)
+      BuildingLevel.create(building_id: 1, level: 1, vodka: 10, food: 10, beer: 10)
+      Building.create(id: 2)
+      BuildingLevel.create(building_id: 2, level: 1, vodka: 10, food: 10, beer: 10)
+      
+      post :upgrade, building_id: 2, format: 'json'
+      error = assigns(:error)
+      expect(error).to eq(false)
+
+    end
+    it "creates nnew Building" do
+      @usr  = User.create(id:1)
+      District.create(user_id: 1, beer: 20, food: 20, vodka: 20, stone: 20)
+
+      Building.create(id: 1)
+      BuildingLevel.create(building_id: 1, level: 1, vodka: 10, food: 10, beer: 10)
+
+      post :upgrade, building_id: 1, format: 'json'
+      
+      expect(DistrictBuilding.all.first.level).to eq(1)
+    end
   end
 
   describe 'GET /buildings/levels' do
