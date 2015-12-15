@@ -54,6 +54,22 @@ RSpec.describe BuildingsController, type: :controller do
 
       expect(DistrictBuilding.where(district_id: 1, building_id: 1).first.level).to eq(2)
     end
+
+    it 'subtracts resources from district' do
+      @usr = User.create(id: 1)
+      District.create(user_id: 1, beer: 100, food: 100, vodka: 100, stone: 0)
+      Building.create(id: 1)
+      DistrictBuilding.create(district_id: 1, building_id: 1, level: 1)
+      BuildingLevel.create(building_id: 1, level: 2, vodka: 10, food: 10, beer: 10, stone: 0)
+
+      post :upgrade, building_id: 1, format: 'json'
+      district = District.all.first
+
+      expect(district.beer).to eq(90)
+      expect(district.food).to eq(90)
+      expect(district.vodka).to eq(90)
+      expect(district.stone).to eq(0)
+    end
   end
 
   describe 'GET /buildings/levels' do

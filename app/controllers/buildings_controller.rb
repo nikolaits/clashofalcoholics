@@ -37,6 +37,13 @@ class BuildingsController < ApplicationController
           building.level = level
           building.save
         end
+
+        # Subtract resources
+        @district.beer -= requirements.beer
+        @district.food -= requirements.food
+        @district.vodka -= requirements.vodka
+        @district.stone -=  requirements.stone
+        @district.save
       end
     end
   end
