@@ -10,7 +10,8 @@
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended that you check this file into your version control system.
-ActiveRecord::Schema.define(version: 20151013060739) do
+
+ActiveRecord::Schema.define(version: 20151215071432) do
 
   create_table "building_levels", force: :cascade do |t|
     t.integer "building_id"
@@ -28,7 +29,7 @@ ActiveRecord::Schema.define(version: 20151013060739) do
   create_table "district_buildings", force: :cascade do |t|
     t.integer "district_id"
     t.integer "building_id"
-    t.integer "level"
+    t.integer "level",       default: 0
   end
 
   create_table "districts", force: :cascade do |t|
