@@ -23,6 +23,10 @@
 * `git remote add upstream ABLAGOEV_GITHUB_URL`
 * `git remote -v` ablagoev should already be present
 
+### Reset fork master to upstream master
+* `git reset --hard upstream/master`
+* `git push origin master --force`
+
 ### Synchronizing
 
 * `git fetch upstream`
