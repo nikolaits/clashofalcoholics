@@ -4,16 +4,16 @@ RSpec.describe BuildingsController, type: :controller do
     before :each do
       @distr = create(:district, beer: 100, food: 100, vodka: 100, stone: 0)
       @usr = @distr.user
-      @build = create(:building)\
+      @build = create(:building)
     end
 
-    it "returns an error when building doesn't not exists" do
+    it 'returns an error when building does not exist' do
       post :upgrade, building_id: 200, format: 'json'
       error = assigns(:error)
       expect(error).to eq(true)
     end
 
-    it "returns an error if user doesn't have enough rosources for upgrade" do
+    it 'returns an error if user doesn\'t have enough resources for an upgrade' do
       @distr.beer = 0
       @distr.save
       create(:building_level, building_id: @build.id, level: 1, vodka: 10, food: 10, beer: 10)
