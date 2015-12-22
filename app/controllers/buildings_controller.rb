@@ -45,4 +45,9 @@ class BuildingsController < ApplicationController
     @user = User.all.first
     @district = @user.districts.first
   end
+
+  def list
+    @district = @user.districts.first
+    @list_buildings = @district.district_buildings
+  end
 end

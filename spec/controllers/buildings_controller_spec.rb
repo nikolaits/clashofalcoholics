@@ -76,4 +76,19 @@ RSpec.describe BuildingsController, type: :controller do
       expect(levels.length).to eq(10)
     end
   end
+
+  describe 'GET /buildings/list' do
+    it 'returns a list of district buildings' do
+      @distr = create(:district, beer:100, vodka: 10, food:20,stone:10)
+      create(:district_building, district_id: @distr.id, level:2)
+      create(:district_building, district_id: @distr.id, level:3)
+      create(:district_building, district_id: @distr.id, level:1)
+
+      get :list, format: 'json'
+
+      buildings = assigns(:list_buildings)
+      expect(buildings.length).to eq(3)
+      expect(buildings.first.level).to eq(2)
+    end
+  end
 end
